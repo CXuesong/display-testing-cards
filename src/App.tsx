@@ -6,7 +6,8 @@ import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import * as ColorCard from './ColorCard';
+import { ColorCard } from './ColorCard';
+import * as ColorCardPicker from './ColorCardPicker';
 
 const styles = {
   menuButton: {
@@ -14,6 +15,9 @@ const styles = {
     marginRight: 10,
   },
   root: {
+    flexGrow: 1,
+  },
+  flex: {
     flexGrow: 1,
   },
 };
@@ -33,7 +37,7 @@ class App extends React.Component<any, { appBarVisible: boolean }> {
       });
     };
     return (
-      <div className="App" onMouseMove={onMouseMove}>
+      <div className="App">
         {this.state.appBarVisible &&
           <AppBar position="static">
             <Toolbar>
@@ -43,9 +47,12 @@ class App extends React.Component<any, { appBarVisible: boolean }> {
               <Typography variant="title" color="inherit" className={classes.flex}>
                 Display Testing Cards
             </Typography>
+              <ColorCardPicker.ColorPickerButton />
             </Toolbar>
           </AppBar>}
-        <ColorCard.ColorCard color="blue" />
+        <div onMouseMove={onMouseMove}>
+          <ColorCard color="blue" />
+        </div>
       </div>
     );
   }
