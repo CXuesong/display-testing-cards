@@ -1,6 +1,7 @@
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
-import Check from '@material-ui/icons/Check';
+import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@material-ui/core';
 import ColorLens from '@material-ui/icons/ColorLens';
+import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
+import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
@@ -42,14 +43,16 @@ export class ColorPickerButton extends React.Component<IColorPickerButtonMergedP
         };
         const predefinedColors = this.getItems();
         return (<div>
-            <IconButton
-                aria-owns={open ? 'menu-appbar' : undefined}
-                aria-haspopup="true"
-                onClick={onButtonClicked}
-                color="inherit"
-            >
-                <ColorLens />
-            </IconButton>
+            <Tooltip title="Choose a testing card">
+                <IconButton
+                    aria-owns={open ? 'menu-appbar' : undefined}
+                    aria-haspopup="true"
+                    onClick={onButtonClicked}
+                    color="inherit"
+                >
+                    <ColorLens />
+                </IconButton>
+            </Tooltip>
             <Menu
                 id="menu-appbar"
                 anchorEl={this.state.anchorEl}
@@ -70,7 +73,7 @@ export class ColorPickerButton extends React.Component<IColorPickerButtonMergedP
                         onClick={onMenuClosing}
                         data-itemkey={i}
                     >
-                        {this.props.selectedItem === item && <ListItemIcon><Check /></ListItemIcon>}
+                        <ListItemIcon>{this.props.selectedItem === item ? <RadioButtonChecked /> : <RadioButtonUnchecked />}</ListItemIcon>
                         <ListItemText primary={item.name} />
                     </MenuItem>);
                 })}

@@ -7,7 +7,8 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import { ReduxColorCard } from './ColorCard';
-import * as ColorCardPicker from './ColorCardPicker';
+import { ReduxColorPickerButton } from './ColorCardPicker';
+import { FullscreenSwitch } from './FullScreenSwitch';
 
 const styles = {
   menuButton: {
@@ -31,25 +32,30 @@ class App extends React.Component<any, { appBarVisible: boolean }> {
 
   public render() {
     const { classes } = this.props;
+    const onAppBarMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+      this.setState({
+        appBarVisible: true
+      });
+    };
     const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
       this.setState({
-        appBarVisible: e.pageY <= Math.max(30, window.innerHeight * 0.2)
+        appBarVisible: false
       });
     };
     return (
       <div className="App">
-        {this.state.appBarVisible &&
-          <AppBar position="static">
-            <Toolbar>
-              <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="title" color="inherit" className={classes.flex}>
-                Display Testing Cards
+        <AppBar position="static" style={{ opacity: this.state.appBarVisible ? undefined : 0 }} onMouseMove={onAppBarMouseMove}>
+          <Toolbar>
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="title" color="inherit" className={classes.flex}>
+              Display Testing Cards
             </Typography>
-              <ColorCardPicker.ReduxColorPickerButton />
-            </Toolbar>
-          </AppBar>}
+            <FullscreenSwitch />
+            <ReduxColorPickerButton />
+          </Toolbar>
+        </AppBar>
         <div onMouseMove={onMouseMove}>
           <ReduxColorCard />
         </div>
