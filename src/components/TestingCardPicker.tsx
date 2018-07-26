@@ -5,10 +5,10 @@ import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import * as Actions from "./Actions"
-import { ITestingCard, PredefinedTestingCards } from './models/TestingCards';
-import { IState } from './Reducers';
-import store from "./Store";
+import * as Actions from "../Actions"
+import { ITestingCard, PredefinedTestingCards } from '../models/TestingCards';
+import { IState } from '../Reducers';
+import store from "../Store";
 
 interface IColorPickerButtonStates {
     anchorEl?: HTMLElement

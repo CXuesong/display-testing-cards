@@ -3,14 +3,14 @@ import Fullscreen from '@material-ui/icons/Fullscreen';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { IPureColorTestingCard, ITestingCard, TestingCardTypes } from './models/TestingCards';
-import { IState } from './Reducers';
+import { IPureColorTestingCard, ITestingCard, TestingCardTypes } from '../models/TestingCards';
+import { IState } from '../Reducers';
 
-export interface IColorCardProps {
+export interface ITestingCardProps {
     card: ITestingCard
 }
 
-type IColorCardMergedProps = IColorCardProps;
+type ITestingCardMergedProps = ITestingCardProps;
 
 const emptyTestingCardPlaceHolder = (<div
     style={{ margin: "auto", left: "0", top: "0", right: "0", bottom: "0", height: "2pc", position: "absolute" }}
@@ -19,7 +19,7 @@ const emptyTestingCardPlaceHolder = (<div
     <p>then click <Fullscreen /> to display the testing cards in full screen.</p>
 </div>);
 
-export class ColorCard extends React.Component<IColorCardMergedProps>
+export class TestingCard extends React.Component<ITestingCardMergedProps>
 {
     public render() {
         const divStyle: React.CSSProperties = {
@@ -43,6 +43,6 @@ export class ColorCard extends React.Component<IColorCardMergedProps>
 }
 
 export const ReduxColorCard = connect(
-    (state: IState, prop: {}): IColorCardMergedProps => {
+    (state: IState, prop: {}): ITestingCardMergedProps => {
         return { card: state.testingCard };
-    })(ColorCard);
+    })(TestingCard);
