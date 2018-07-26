@@ -44,7 +44,9 @@ class App extends React.Component<any, { appBarVisible: boolean }> {
     };
     return (
       <div className="App">
-        <AppBar position="static" style={{ opacity: this.state.appBarVisible ? undefined : 0 }} onMouseMove={onAppBarMouseMove}>
+        <AppBar position="static"
+          className={this.state.appBarVisible ? "fade-in" : "fade-out"}
+          onMouseMove={onAppBarMouseMove}>
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
