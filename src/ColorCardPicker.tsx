@@ -1,33 +1,31 @@
-import { IconButton, Menu, MenuItem } from '@material-ui/core';
+import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
+import Check from '@material-ui/icons/Check';
 import ColorLens from '@material-ui/icons/ColorLens';
 import * as React from 'react';
+import { connect } from 'react-redux';
+
+import * as Actions from "./Actions"
+import { ITestingCard, PredefinedTestingCards } from './models/TestingCards';
+import { IState } from './Reducers';
+import store from "./Store";
 
 interface IColorPickerButtonStates {
     anchorEl?: HTMLElement
 }
 
-export interface IPredefinedColor {
-    name: string,
-    color: string,
+interface IColorPickerButtonConnectedProps {
+    selectedItem: ITestingCard
 }
 
 export interface IColorPickerButtonProps {
-    predefinedColors?: IPredefinedColor[],
-    selectedColor?: string
+    items?: ITestingCard[],
 }
 
-export const DefaultPredefinedColors: IPredefinedColor[] = [
-    { name: "Black", color: "#000000" },
-    { name: "White", color: "#FFFFFF" },
-    { name: "Gray", color: "#999999" },
-    { name: "Red", color: "#FF0000" },
-    { name: "Green", color: "#00FF00" },
-    { name: "Blue", color: "#0000FF" },
-];
+type IColorPickerButtonMergedProps = IColorPickerButtonProps & IColorPickerButtonConnectedProps;
 
-export class ColorPickerButton extends React.Component<IColorPickerButtonProps, IColorPickerButtonStates>
+export class ColorPickerButton extends React.Component<IColorPickerButtonMergedProps, IColorPickerButtonStates>
 {
-    constructor(props: IColorPickerButtonProps) {
+    constructor(props: IColorPickerButtonProps & IColorPickerButtonConnectedProps) {
         super(props)
         this.state = { anchorEl: undefined };
     }
@@ -36,13 +34,13 @@ export class ColorPickerButton extends React.Component<IColorPickerButtonProps, 
             this.setState({ anchorEl: e.currentTarget });
         };
         const onMenuClosing = (e: React.MouseEvent<HTMLElement>) => {
-            if (!!e.currentTarget.dataset.color)
-            {
-                console.log(e.currentTarget.dataset.color);
+            if (e.currentTarget.dataset.itemkey) {
+                const card = this.getItems()[parseInt(e.currentTarget.dataset.itemkey, 10)];
+                store.dispatch(Actions.setTestingCard(card));
             }
             this.setState({ anchorEl: undefined });
         };
-        const predefinedColors = this.props.predefinedColors || DefaultPredefinedColors;
+        const predefinedColors = this.getItems();
         return (<div>
             <IconButton
                 aria-owns={open ? 'menu-appbar' : undefined}
@@ -66,14 +64,25 @@ export class ColorPickerButton extends React.Component<IColorPickerButtonProps, 
                 open={!!this.state.anchorEl}
                 onClose={onMenuClosing}
             >
-                {predefinedColors.map((item) => {
+                {predefinedColors.map((item, i) => {
                     return (<MenuItem
-                        key={item.name + "|" + item.color}
+                        key={i}
                         onClick={onMenuClosing}
-                        data-color={item.color}
-                    >{item.name}</MenuItem>);
+                        data-itemkey={i}
+                    >
+                        {this.props.selectedItem === item && <ListItemIcon><Check /></ListItemIcon>}
+                        <ListItemText primary={item.name} />
+                    </MenuItem>);
                 })}
             </Menu>
         </div>)
     }
+    private getItems() {
+        return this.props.items || PredefinedTestingCards;
+    }
 }
+
+export const ReduxColorPickerButton = connect(
+    (state: IState, prop: IColorPickerButtonProps): IColorPickerButtonMergedProps => {
+        return { items: prop.items, selectedItem: state.testingCard };
+    })(ColorPickerButton);

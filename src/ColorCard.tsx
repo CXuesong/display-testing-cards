@@ -1,15 +1,20 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+
+import { IPureColorTestingCard, ITestingCard, TestingCardTypes } from './models/TestingCards';
+import { IState } from './Reducers';
 
 export interface IColorCardProps
 {
-    color: string
+    card: ITestingCard
 }
 
-export class ColorCard extends React.Component<IColorCardProps>
+type IColorCardMergedProps = IColorCardProps;
+
+export class ColorCard extends React.Component<IColorCardMergedProps>
 {
     public render() {
         const divStyle: React.CSSProperties = {
-            backgroundColor: this.props.color,
             position: "absolute",
             left: "0",
             top: "0",
@@ -17,6 +22,18 @@ export class ColorCard extends React.Component<IColorCardProps>
             width: "100%",
             zIndex: -1,
         };
+        const card = this.props.card;
+        switch (card.type)
+        {
+            case TestingCardTypes.PureColor:
+                divStyle.backgroundColor = (card as IPureColorTestingCard).color
+                break;
+        }
         return (<div style={divStyle} />);
     }
 }
+
+export const ReduxColorCard = connect(
+    (state: IState, prop: {}): IColorCardMergedProps => {
+        return { card: state.testingCard };
+    })(ColorCard);

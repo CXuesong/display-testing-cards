@@ -6,7 +6,7 @@ import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 
-import { ColorCard } from './ColorCard';
+import { ReduxColorCard } from './ColorCard';
 import * as ColorCardPicker from './ColorCardPicker';
 
 const styles = {
@@ -47,11 +47,11 @@ class App extends React.Component<any, { appBarVisible: boolean }> {
               <Typography variant="title" color="inherit" className={classes.flex}>
                 Display Testing Cards
             </Typography>
-              <ColorCardPicker.ColorPickerButton />
+              <ColorCardPicker.ReduxColorPickerButton />
             </Toolbar>
           </AppBar>}
         <div onMouseMove={onMouseMove}>
-          <ColorCard color="blue" />
+          <ReduxColorCard />
         </div>
       </div>
     );
