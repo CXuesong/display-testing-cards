@@ -1,3 +1,4 @@
+import { Typography } from '@material-ui/core';
 import ColorLens from '@material-ui/icons/ColorLens';
 import Fullscreen from '@material-ui/icons/Fullscreen';
 import * as React from 'react';
@@ -13,10 +14,18 @@ export interface ITestingCardProps {
 type ITestingCardMergedProps = ITestingCardProps;
 
 const emptyTestingCardPlaceHolder = (<div
-    style={{ margin: "auto", left: "0", top: "0", right: "0", bottom: "0", height: "2pc", position: "absolute" }}
+    style={{ verticalAlign: "center" }}
 >
-    <p>To get started, choose a testing card by clicking <ColorLens /> button;</p>
-    <p>then click <Fullscreen /> to display the testing cards in full screen.</p>
+    <Typography variant="display1">Display Testing Cards</Typography>
+    <Typography variant="title">a monitor testing app brought to you by <a href="https://github.com/cxuesong">CXuesong</a>.</Typography>
+    <hr />
+    <Typography variant="subheading">
+        Hover the mouse to the top for menus.<br />
+        To get started, choose a testing card by clicking <ColorLens /> button;<br />
+        then click <Fullscreen /> to display the testing cards in full screen.<br />
+    </Typography>
+    <p />
+    <Typography><a href="https://github.com/cxuesong/display-testing-cards">Source Code on GitHub</a> | <a href="https://github.com/cxuesong/display-testing-cards/issues">Issue &amp; Suggestion</a></Typography>
 </div>);
 
 export class TestingCard extends React.Component<ITestingCardMergedProps>
