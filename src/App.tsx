@@ -2,13 +2,13 @@
 import * as React from 'react';
 import './App.css';
 
-import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 
-import { ReduxColorCard } from './ColorCard';
-import { ReduxColorPickerButton } from './ColorCardPicker';
-import { FullscreenSwitch } from './FullScreenSwitch';
+import { AppDrawer } from './components/AppDrawer';
+import { FullscreenSwitch } from './components/FullScreenSwitch';
+import { ReduxColorCard } from './components/TestingCard';
+import { ReduxColorPickerButton } from './components/TestingCardPicker';
 
 const styles = {
   menuButton: {
@@ -48,9 +48,7 @@ class App extends React.Component<any, { appBarVisible: boolean }> {
           className={this.state.appBarVisible ? "fade-in" : "fade-out"}
           onMouseMove={onAppBarMouseMove}>
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
+            <AppDrawer menuButtonClassName={classes.menuButton} />
             <Typography variant="title" color="inherit" className={classes.flex}>
               Display Testing Cards
             </Typography>
@@ -58,6 +56,7 @@ class App extends React.Component<any, { appBarVisible: boolean }> {
             <ReduxColorPickerButton />
           </Toolbar>
         </AppBar>
+
         <div onMouseMove={onMouseMove}>
           <ReduxColorCard />
         </div>
