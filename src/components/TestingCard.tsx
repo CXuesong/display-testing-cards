@@ -20,7 +20,7 @@ const emptyTestingCardPlaceHolder = (<div
     <Typography variant="title">a monitor testing app brought to you by <a href="https://github.com/cxuesong">CXuesong</a>.</Typography>
     <hr />
     <Typography variant="subheading">
-        Hover the mouse to the top for menus.<br />
+        Hover your mouse to / touch the top border for menus.<br />
         To get started, choose a testing card by clicking <ColorLens /> button;<br />
         then click <Fullscreen /> to display the testing cards in full screen.<br />
     </Typography>
