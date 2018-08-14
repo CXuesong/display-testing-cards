@@ -13,19 +13,19 @@ export interface ITestingCardProps {
 
 type ITestingCardMergedProps = ITestingCardProps;
 
-const emptyTestingCardPlaceHolder = (<div
-    style={{ verticalAlign: "center" }}
->
-    <Typography variant="display1">Display Testing Cards</Typography>
-    <Typography variant="title">a monitor testing app brought to you by <a href="https://github.com/cxuesong">CXuesong</a>.</Typography>
-    <hr />
-    <Typography variant="subheading">
-        Hover your mouse to / touch the top border for menus.<br />
-        To get started, choose a testing card by clicking <ColorLens /> button;<br />
-        then click <Fullscreen /> to display the testing cards in full screen.<br />
-    </Typography>
-    <p />
-    <Typography><a href="https://github.com/cxuesong/display-testing-cards">Source Code on GitHub</a> | <a href="https://github.com/cxuesong/display-testing-cards/issues">Issue &amp; Suggestion</a></Typography>
+const emptyTestingCardPlaceHolder = (<div className="testingcard-instructions">
+    <div>
+        <Typography variant="display1">Display Testing Cards</Typography>
+        <Typography variant="title">a monitor testing app brought to you by <a href="https://github.com/cxuesong">CXuesong</a>.</Typography>
+        <hr />
+        <Typography variant="subheading">
+            Hover your mouse to / touch the top border for menus.<br />
+            To get started, choose a testing card by clicking <ColorLens /> button;<br />
+            then click <Fullscreen /> to display the testing cards in full screen.<br />
+        </Typography>
+        <p />
+        <Typography><a href="https://github.com/cxuesong/display-testing-cards">Source Code on GitHub</a> | <a href="https://github.com/cxuesong/display-testing-cards/issues">Issue &amp; Suggestion</a></Typography>
+    </div>
 </div>);
 
 export class TestingCard extends React.Component<ITestingCardMergedProps>
