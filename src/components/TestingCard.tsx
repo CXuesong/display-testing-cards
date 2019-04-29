@@ -15,10 +15,10 @@ type ITestingCardMergedProps = ITestingCardProps;
 
 const emptyTestingCardPlaceHolder = (<div className="testingcard-instructions">
     <div>
-        <Typography variant="display1">Display Testing Cards</Typography>
-        <Typography variant="title">a monitor testing app brought to you by <a href="https://github.com/cxuesong">CXuesong</a>.</Typography>
+        <Typography variant="h4">Display Testing Cards</Typography>
+        <Typography variant="h6">a monitor testing app brought to you by <a href="https://github.com/cxuesong">CXuesong</a>.</Typography>
         <hr />
-        <Typography variant="subheading">
+        <Typography variant="subtitle1" className="vcenter-images">
             Hover your mouse to / touch the top border for menus.<br />
             To get started, choose a testing card by clicking <ColorLens /> button;<br />
             then click <Fullscreen /> to display the testing cards in full screen.<br />
