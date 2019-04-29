@@ -11,14 +11,19 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts("/display-testing-cards/workbox-v3.6.3/workbox-sw.js");
-workbox.setConfig({modulePathPrefix: "/display-testing-cards/workbox-v3.6.3"});
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.0/workbox-sw.js");
 
 importScripts(
-  "/display-testing-cards/precache-manifest.953eb21033b96debd5bb2d2e676e221b.js"
+  "/display-testing-cards/precache-manifest.dd56d831559303aac0b85262c357369c.js"
 );
 
-workbox.clientsClaim();
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
+workbox.core.clientsClaim();
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
@@ -26,10 +31,9 @@ workbox.clientsClaim();
  * See https://goo.gl/S9QRab
  */
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
-workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/display-testing-cards/index.html", {
+workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/display-testing-cards/index.html"), {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
