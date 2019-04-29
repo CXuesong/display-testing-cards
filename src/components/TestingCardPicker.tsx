@@ -45,7 +45,7 @@ export class ColorPickerButton extends React.Component<IColorPickerButtonMergedP
         return (<div>
             <Tooltip title="Choose a testing card">
                 <IconButton
-                    aria-owns={open ? 'menu-appbar' : undefined}
+                    aria-owns={this.state.anchorEl ? 'menu-appbar' : undefined}
                     aria-haspopup="true"
                     onClick={onButtonClicked}
                     color="inherit"

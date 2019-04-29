@@ -46,6 +46,7 @@ export class TestingCard extends React.Component<ITestingCardMergedProps>
             case TestingCardTypes.PureColor:
                 divStyle.backgroundColor = (card as IPureColorTestingCard).color
                 break;
+            default:
         }
         return (<div style={divStyle} />);
     }
