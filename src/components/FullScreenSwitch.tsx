@@ -25,28 +25,46 @@ export class FullscreenSwitch extends React.Component<{}, IFullscreenSwitchState
     public render() {
         const onButtonClicked = (e: React.MouseEvent<HTMLElement>) => {
             if (this.state.isFullscreen) {
-                (document.exitFullscreen
-                    || document.webkitExitFullscreen
-                    || (document as any).msExitFullscreen).apply(document);
+                const fsdoc1 = document as any as IDocumentWithFullScreen;
+                (fsdoc1.exitFullscreen || fsdoc1.webkitExitFullscreen || fsdoc1.msExitFullscreen).apply(fsdoc1);
             } else {
-                (document.documentElement.requestFullscreen
-                    || document.documentElement.webkitRequestFullscreen
-                    || (document.documentElement as any).msRequestFullscreen).apply(document.documentElement);
+                const fshtml = document.documentElement as any as IElementWithFullScreen;
+                (fshtml.requestFullscreen || fshtml.webkitRequestFullscreen || fshtml.msRequestFullscreen).apply(fshtml);
             }
         };
         const isFullscreen = this.state.isFullscreen;
+        const fsdoc = document as any as IDocumentWithFullScreen;
         return <Tooltip title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}>
             <IconButton
                 onClick={onButtonClicked}
                 color="inherit"
-                disabled={!(document.fullscreenEnabled || document.webkitFullscreenEnabled || (document as any).msFullscreenEnabled)}
+                disabled={!(fsdoc.fullscreenEnabled || fsdoc.webkitFullscreenEnabled || fsdoc.msFullscreenEnabled)}
             >
                 {isFullscreen ? <FullscreenExit /> : <Fullscreen />}
             </IconButton>
         </Tooltip>
     }
     private onFullScreenChanged = (e: Event) => {
-        const isFullScreen = document.webkitIsFullScreen || !!(document as any).msFullscreenElement;
+        const fsdoc = document as any as IDocumentWithFullScreen;
+        const isFullScreen = !!(fsdoc.webkitIsFullScreen || fsdoc.fullscreenElement || fsdoc.msFullscreenElement);
         this.setState({ isFullscreen: isFullScreen });
     };
+}
+
+interface IDocumentWithFullScreen {
+    fullscreenEnabled: boolean;
+    webkitFullscreenEnabled: boolean;
+    msFullscreenEnabled: boolean;
+    fullscreenElement: HTMLElement;
+    webkitIsFullScreen: boolean;
+    msFullscreenElement: HTMLElement;
+    exitFullscreen(): Promise<void>;
+    webkitExitFullscreen(): Promise<void>;
+    msExitFullscreen(): Promise<void>;
+}
+
+interface IElementWithFullScreen {
+    requestFullscreen(options?: FullscreenOptions): Promise<void>;
+    webkitRequestFullscreen(options?: FullscreenOptions): Promise<void>;
+    msRequestFullscreen(options?: FullscreenOptions): Promise<void>;
 }
