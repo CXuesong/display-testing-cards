@@ -15,7 +15,7 @@ importScripts("/display-testing-cards/workbox-v3.6.3/workbox-sw.js");
 workbox.setConfig({modulePathPrefix: "/display-testing-cards/workbox-v3.6.3"});
 
 importScripts(
-  "/display-testing-cards/precache-manifest.a04aa31760f5f7180794eab6e9f37c82.js"
+  "/display-testing-cards/precache-manifest.953eb21033b96debd5bb2d2e676e221b.js"
 );
 
 workbox.clientsClaim();
