@@ -1,4 +1,4 @@
-import { Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import CodeIcon from '@material-ui/icons/Code';
 import HelpIcon from '@material-ui/icons/Help';
@@ -29,9 +29,10 @@ export class AppDrawer extends React.Component<IAppDrawerProps, IAppDrawerStates
             <IconButton className={this.props.menuButtonClassName} color="inherit" aria-label="Menu" onClick={this.onOpen}>
                 <MenuIcon />
             </IconButton>
-            <Drawer
+            <SwipeableDrawer
                 anchor="left"
                 open={this.state.isOpen}
+                onOpen={this.onOpen}
                 onClose={this.onClose}
             >
                 <IconButton onClick={this.onClose}>
@@ -55,7 +56,7 @@ export class AppDrawer extends React.Component<IAppDrawerProps, IAppDrawerStates
                     </div>
                 </List>
                 <Divider />
-            </Drawer></div>
+            </SwipeableDrawer></div>
     }
 
     private onOpen = () => { this.setState({ isOpen: true }); };
