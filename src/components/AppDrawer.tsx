@@ -10,7 +10,10 @@ import { EmptyTestingCard } from '../models/TestingCards';
 import store from "../Store";
 
 export interface IAppDrawerProps {
-    menuButtonClassName: any
+    classes: {
+        drawerHeader?: any,
+        menuButton?: any
+    }
 }
 
 interface IAppDrawerStates {
@@ -25,8 +28,9 @@ export class AppDrawer extends React.Component<IAppDrawerProps, IAppDrawerStates
     }
 
     public render() {
+        const { classes } = this.props;
         return <div>
-            <IconButton className={this.props.menuButtonClassName} color="inherit" aria-label="Menu" onClick={this.onOpen}>
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.onOpen}>
                 <MenuIcon />
             </IconButton>
             <SwipeableDrawer
@@ -35,9 +39,11 @@ export class AppDrawer extends React.Component<IAppDrawerProps, IAppDrawerStates
                 onOpen={this.onOpen}
                 onClose={this.onClose}
             >
-                <IconButton onClick={this.onClose}>
-                    <ChevronLeftIcon />
-                </IconButton>
+                <div className={classes.drawerHeader}>
+                    <IconButton onClick={this.onClose}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                </div>
                 <Divider style={{ minWidth: "20em" }} />
                 <List>
                     <div onClick={this.onClose}>

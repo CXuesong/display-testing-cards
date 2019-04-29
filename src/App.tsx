@@ -11,15 +11,21 @@ import { ReduxColorCard } from './components/TestingCard';
 import { ReduxColorPickerButton } from './components/TestingCardPicker';
 
 const styles = {
-  menuButton: {
-    marginLeft: -18,
-    marginRight: 10,
-  },
   root: {
     flexGrow: 1,
   },
   flex: {
     flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -18,
+    marginRight: 10,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 8px',
+    justifyContent: 'flex-end',
   },
 };
 
@@ -48,8 +54,8 @@ class App extends React.Component<any, { appBarVisible: boolean }> {
           className={this.state.appBarVisible ? "fade-in" : "fade-out"}
           onMouseMove={onAppBarMouseMove}>
           <Toolbar>
-            <AppDrawer menuButtonClassName={classes.menuButton} />
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <AppDrawer classes={{ drawerHeader: classes.drawerHeader, menuButton: classes.menuButton }} />
+            <Typography variant="h6" color="inherit" className={classes.flex}>
               Display Testing Cards
             </Typography>
             <FullscreenSwitch />
