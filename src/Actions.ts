@@ -1,4 +1,4 @@
-import { ITestingCard } from './models/TestingCards';
+import { KnownTestingCard } from './models/TestingCards';
 
 export enum ActionTypes {
     SetTestingCard = "SET_TESTING_CARD",
@@ -6,11 +6,11 @@ export enum ActionTypes {
 
 export interface ISetTestingCardAction {
     type: ActionTypes.SetTestingCard,
-    card: ITestingCard
+    card: KnownTestingCard
 }
 
 export type Action = ISetTestingCardAction;
 
-export function setTestingCard(card: ITestingCard): ISetTestingCardAction {
+export function setTestingCard(card: KnownTestingCard): ISetTestingCardAction {
     return { type: ActionTypes.SetTestingCard, card };
 }

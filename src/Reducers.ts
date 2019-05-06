@@ -1,8 +1,8 @@
 import { Action, ActionTypes } from './Actions';
-import { EmptyTestingCard, ITestingCard } from './models/TestingCards';
+import { EmptyTestingCard, KnownTestingCard } from './models/TestingCards';
 
 export interface IState {
-    testingCard: ITestingCard
+    testingCard: KnownTestingCard
 }
 
 export const InitialState: IState = { testingCard: EmptyTestingCard };

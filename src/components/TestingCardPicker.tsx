@@ -2,24 +2,26 @@ import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from 
 import ColorLens from '@material-ui/icons/ColorLens';
 import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import FormatColorFill from '@material-ui/icons/FormatColorFill';
 import * as React from 'react';
 import { connect } from 'react-redux';
 
 import * as Actions from "../Actions"
-import { ITestingCard, PredefinedTestingCards } from '../models/TestingCards';
+import { PredefinedTestingCards, TestingCardTypes, KnownTestingCard } from '../models/TestingCards';
 import { IState } from '../Reducers';
 import store from "../Store";
+import TransparencyGrid from "../images/transparency-grid.svg"
 
 interface IColorPickerButtonStates {
     anchorEl?: HTMLElement
 }
 
 interface IColorPickerButtonConnectedProps {
-    selectedItem: ITestingCard
+    selectedItem: KnownTestingCard
 }
 
 export interface IColorPickerButtonProps {
-    items?: ITestingCard[],
+    items?: KnownTestingCard[],
 }
 
 type IColorPickerButtonMergedProps = IColorPickerButtonProps & IColorPickerButtonConnectedProps;
@@ -29,6 +31,20 @@ export class ColorPickerButton extends React.Component<IColorPickerButtonMergedP
     constructor(props: IColorPickerButtonProps & IColorPickerButtonConnectedProps) {
         super(props)
         this.state = { anchorEl: undefined };
+    }
+    public renderButtonIcon(card: KnownTestingCard) {
+        switch (card.type) {
+            case TestingCardTypes.Empty:
+            case TestingCardTypes.PureColor:
+                const fill = card.type === TestingCardTypes.Empty ? `url(${TransparencyGrid})` : card.color;
+                return (<div style={{ position: "relative", fontSize: 0 }}>
+                    <FormatColorFill style={{ position: "relative", left: 0, top: 0 }} />
+                    <div style={{ background: fill, width: "100%", height: "4px", position: "absolute", top: "20px" }}>
+                    </div>
+                </div>);
+            default:
+                return <ColorLens />;
+        }
     }
     public render() {
         const onButtonClicked = (e: React.MouseEvent<HTMLElement>) => {
@@ -42,6 +58,7 @@ export class ColorPickerButton extends React.Component<IColorPickerButtonMergedP
             this.setState({ anchorEl: undefined });
         };
         const predefinedColors = this.getItems();
+        const { selectedItem } = this.props;
         return (<div>
             <Tooltip title="Choose a testing card">
                 <IconButton
@@ -50,7 +67,7 @@ export class ColorPickerButton extends React.Component<IColorPickerButtonMergedP
                     onClick={onButtonClicked}
                     color="inherit"
                 >
-                    <ColorLens />
+                    {this.renderButtonIcon(selectedItem)}
                 </IconButton>
             </Tooltip>
             <Menu
