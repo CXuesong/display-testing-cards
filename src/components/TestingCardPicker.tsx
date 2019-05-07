@@ -1,7 +1,6 @@
 import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@material-ui/core';
 import ColorLens from '@material-ui/icons/ColorLens';
-import RadioButtonChecked from '@material-ui/icons/RadioButtonChecked';
-import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import Check from '@material-ui/icons/Check';
 import FormatColorFill from '@material-ui/icons/FormatColorFill';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -11,6 +10,7 @@ import { PredefinedTestingCards, TestingCardTypes, KnownTestingCard } from '../m
 import { IState } from '../Reducers';
 import store from "../Store";
 import TransparencyGrid from "../images/transparency-grid.svg"
+import "./TestingCardPicker.css"
 
 interface IColorPickerButtonStates {
     anchorEl?: HTMLElement
@@ -85,12 +85,14 @@ export class ColorPickerButton extends React.Component<IColorPickerButtonMergedP
                 onClose={onMenuClosing}
             >
                 {predefinedColors.map((item, i) => {
+                    const selected = this.props.selectedItem === item;
                     return (<MenuItem
                         key={i}
                         onClick={onMenuClosing}
                         data-itemkey={i}
+                        selected={selected}
                     >
-                        <ListItemIcon>{this.props.selectedItem === item ? <RadioButtonChecked /> : <RadioButtonUnchecked />}</ListItemIcon>
+                        <TestingCardIcon card={item} isChecked={selected} />
                         <ListItemText primary={item.name} />
                     </MenuItem>);
                 })}
@@ -106,3 +108,27 @@ export const ReduxColorPickerButton = connect(
     (state: IState, prop: IColorPickerButtonProps): IColorPickerButtonMergedProps => {
         return { items: prop.items, selectedItem: state.testingCard };
     })(ColorPickerButton);
+
+export interface ITestingCardIconProps {
+    card: KnownTestingCard,
+    isChecked: boolean
+}
+
+export class TestingCardIcon extends React.Component<ITestingCardIconProps, {}>
+{
+    constructor(props: ITestingCardIconProps) {
+        super(props);
+    }
+    private renderIcon() {
+        const { card } = this.props;
+        const fill = card.type === TestingCardTypes.Empty ? `url(${TransparencyGrid})` : card.color;
+        return (<div className="testing-card-icon" style={{ background: fill }}>
+            {this.props.isChecked && <Check />}
+        </div>);
+    }
+    public render() {
+        return <React.Fragment>
+            <ListItemIcon>{this.renderIcon()}</ListItemIcon>
+        </React.Fragment>
+    }
+}
