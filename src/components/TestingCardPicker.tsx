@@ -26,7 +26,7 @@ export interface IColorPickerButtonProps {
 
 type IColorPickerButtonMergedProps = IColorPickerButtonProps & IColorPickerButtonConnectedProps;
 
-export class ColorPickerButton extends React.Component<IColorPickerButtonMergedProps, IColorPickerButtonStates>
+export class ColorPickerButton extends React.PureComponent<IColorPickerButtonMergedProps, IColorPickerButtonStates>
 {
     constructor(props: IColorPickerButtonProps & IColorPickerButtonConnectedProps) {
         super(props)

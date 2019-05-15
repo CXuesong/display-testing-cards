@@ -28,7 +28,7 @@ const emptyTestingCardPlaceHolder = (<div className="testingcard-instructions">
     </div>
 </div>);
 
-export class TestingCard extends React.Component<ITestingCardMergedProps>
+export class TestingCard extends React.PureComponent<ITestingCardMergedProps>
 {
     public render() {
         const divStyle: React.CSSProperties = {

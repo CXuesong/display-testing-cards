@@ -29,7 +29,7 @@ const styles = {
   },
 };
 
-class App extends React.Component<any, { appBarVisible: boolean }> {
+class App extends React.PureComponent<any, { appBarVisible: boolean }> {
 
   constructor(props: any) {
     super(props)

@@ -7,7 +7,7 @@ interface IFullscreenSwitchStates {
     isFullscreen: boolean
 };
 
-export class FullscreenSwitch extends React.Component<{}, IFullscreenSwitchStates> {
+export class FullscreenSwitch extends React.PureComponent<{}, IFullscreenSwitchStates> {
     constructor(props: {}) {
         super(props);
         this.state = { isFullscreen: false };

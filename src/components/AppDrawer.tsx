@@ -20,7 +20,7 @@ interface IAppDrawerStates {
     isOpen: boolean
 }
 
-export class AppDrawer extends React.Component<IAppDrawerProps, IAppDrawerStates> {
+export class AppDrawer extends React.PureComponent<IAppDrawerProps, IAppDrawerStates> {
 
     constructor(props: any) {
         super(props);
